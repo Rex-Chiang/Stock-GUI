@@ -21,4 +21,4 @@ python3 setup.py py2app
 ```
 
 ## Demo
-![Demo](https://github.com/Rex-Chiang/Stock-GUI/blob/main/Demo.gif)
+<img width="500" height="500" src=https://github.com/Rex-Chiang/Stock-GUI/blob/main/Demo.gif>
