@@ -9,12 +9,12 @@ class StockGUI():
         self.frame = wx.Frame(parent = None, title="STOCK GUI")
         self.frame.SetSize(500, 500, 500, 500)
         self.panel = wx.Panel(parent = self.frame, id = wx.ID_ANY)
-
+        
+        # Set the stock label
         self.font = wx.Font(12, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD)
         self.stocks = wx.StaticText(parent = self.panel,
                                     label = "YOUR STOCKS : " + str(self.Crawler.stocks),
                                     pos = (10, 45))
-
         self.stocks.SetFont(self.font)
 
         button = wx.Button(parent = self.panel, label = "INPUT", pos = (10, 10))
@@ -37,15 +37,8 @@ class StockGUI():
         text_box.ShowModal()
         stock_code = text_box.GetValue()
         self.Crawler.addStock(stock_code)
-
-        self.stocks.Destroy()
-        self.stocks = wx.StaticText(parent=self.panel,
-                                    label="YOUR STOCKS : " + str(self.Crawler.stocks),
-                                    style=wx.FONTSTYLE_ITALIC,
-                                    pos=(10, 45))
-
-        self.stocks.SetFont(self.font)
-
+        # Refresh the stocks label
+        self.stocks.SetLabel(label = "YOUR STOCKS : " + str(self.Crawler.stocks))
         text_box.Destroy()
 
     def Remove(self, event):
@@ -53,15 +46,8 @@ class StockGUI():
         text_box.ShowModal()
         stock_code = text_box.GetValue()
         self.Crawler.delStock(stock_code)
-
-        self.stocks.Destroy()
-        self.stocks = wx.StaticText(parent=self.panel,
-                                    label="YOUR STOCKS : " + str(self.Crawler.stocks),
-                                    style=wx.FONTSTYLE_ITALIC,
-                                    pos=(10, 45))
-
-        self.stocks.SetFont(self.font)
-
+        # Refresh the stocks label
+        self.stocks.SetLabel(label = "YOUR STOCKS : " + str(self.Crawler.stocks))
         text_box.Destroy()
 
     def Refresh(self, event):
