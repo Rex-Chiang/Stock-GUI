@@ -38,13 +38,14 @@ class Crawler:
                 time.sleep(0.5)
                 print(f"Save Screenshot : {stock}")
 
-                if not os.path.isdir("../stock_screenshot"):
-                    os.mkdir("../stock_screenshot")
+                if not os.path.isdir("./stock_screenshot"):
+                    os.mkdir("./stock_screenshot")
 
-                self.driver.save_screenshot("../stock_screenshot/" + stock + ".png")
+                self.driver.save_screenshot("./stock_screenshot/" + stock + ".png")
 
         except Exception as msg:
             print(f"Got Error During Retrieve: {msg}")
+            raise Exception(msg)
 
     def close(self):
         self.driver.close()
