@@ -1,1 +1,24 @@
-# Stock-GUI
+# Stock GUI
+
+## Overview
+This project retrieve stocks information from Yahoo. Users could customize the stock code list by using the *INPUT* and *REMOVE* buttons on GUI, and use the *REFRESH* button to get the instant stock information. If users need to hide the stock information on GUI in some situation, they can use the *HIDE* button instead of shutting down the app. Finally, if need to shutdown the app, just use the *CLOSE* button on GUI.
+
+## Developing
+**Built With:**
+* Python3
+* Selenium
+* wxPython
+* Py2app
+
+## Tests
+```
+cd Stock-GUI
+source StockGUIEnv/bin/activate
+cd StockGUIProject
+py2applet --make-setup StockGUIapp.py
+python3 setup.py py2app
+./dist/StockGUIapp.app/Contents/MacOS/StockGUIapp
+```
+
+## Demo
+![Demo](https://github.com/Rex-Chiang/Stock-GUI/blob/main/Demo.gif)
