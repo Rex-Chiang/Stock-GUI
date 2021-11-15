@@ -23,12 +23,12 @@ class Crawler:
             print(f"Got Error During Crawler Initialization : {msg}")
 
     def addStock(self, stock_code):
-        print(f"Add Stock : {stock_code}")
         self.stocks.append(str(stock_code))
+        return f"Add Stock : {stock_code}"
 
     def delStock(self, stock_code):
-        print(f"Remove Stock : {stock_code}")
         self.stocks.remove(str(stock_code))
+        return f"Remove Stock : {stock_code}"
 
     def loadImage(self):
         try:
@@ -36,15 +36,14 @@ class Crawler:
                 url = "https://s.yimg.com/nb/tw_stock_frontend/scripts/StxChart/StxChart.9d11dfe155.html?sid=" + stock
                 self.driver.get(url)
                 time.sleep(0.5)
-                print(f"Save Screenshot : {stock}")
 
                 if not os.path.isdir("./stock_screenshot"):
                     os.mkdir("./stock_screenshot")
 
                 self.driver.save_screenshot("./stock_screenshot/" + stock + ".png")
+                print(f"Save Screenshot : {stock}")
 
         except Exception as msg:
-            print(f"Got Error During Retrieve: {msg}")
             raise Exception(msg)
 
     def close(self):

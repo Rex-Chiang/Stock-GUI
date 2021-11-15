@@ -17,6 +17,12 @@ class StockGUI():
                                     pos = (10, 45))
         self.stocks.SetFont(self.font)
 
+        # Set the message label
+        self.message = wx.StaticText(parent=self.panel,
+                                     label="MESSAGE : No Message",
+                                     pos=(10, 60))
+        self.message.SetFont(self.font)
+
         button = wx.Button(parent = self.panel, label = "INPUT", pos = (10, 10))
         button.Bind(wx.EVT_BUTTON, self.Input)
         button = wx.Button(parent = self.panel, label = "REMOVE", pos = (100, 10))
@@ -36,7 +42,8 @@ class StockGUI():
         text_box = wx.TextEntryDialog(parent = None, message = "Please Input the Stock Code")
         text_box.ShowModal()
         stock_code = text_box.GetValue()
-        self.Crawler.addStock(stock_code)
+        msg = self.Crawler.addStock(stock_code)
+        self.message.SetLabel(label = f"MESSAGE : {msg}")
         # Refresh the stocks label
         self.stocks.SetLabel(label = "YOUR STOCKS : " + str(self.Crawler.stocks))
         text_box.Destroy()
@@ -45,7 +52,11 @@ class StockGUI():
         text_box = wx.TextEntryDialog(parent = None, message = "Please Input the Stock Code")
         text_box.ShowModal()
         stock_code = text_box.GetValue()
-        self.Crawler.delStock(stock_code)
+        if stock_code in self.Crawler.stocks:
+            msg = self.Crawler.delStock(stock_code)
+            self.message.SetLabel(label = f"MESSAGE : {msg}")
+        else:
+            self.message.SetLabel(label = "MESSAGE : Stock Code Is Not In Your List")
         # Refresh the stocks label
         self.stocks.SetLabel(label = "YOUR STOCKS : " + str(self.Crawler.stocks))
         text_box.Destroy()
@@ -53,7 +64,7 @@ class StockGUI():
     def Refresh(self, event):
         try:
             self.Crawler.loadImage()
-            interval = 65
+            interval = 80
             for i in range(0, len(self.Crawler.stocks)):
                 # wx.image responsible for image processing like crop, scale, etc.
                 image = wx.Image("stock_screenshot/" + self.Crawler.stocks[i] + ".png", wx.BITMAP_TYPE_PNG)
@@ -66,28 +77,27 @@ class StockGUI():
                                                                              bitmap = bitmap,
                                                                              pos = (5, interval),
                                                                              size = (10, 10))
-
                 self.bmps_dict[self.Crawler.stocks[i]].SetBitmap(bitmap)
                 interval += 45
 
             self.isexist = True
+            self.message.SetLabel(label = "MESSAGE : Refresh Stocks")
 
         except Exception as msg:
-            print(f"GOT SOME ERROR IN LOAD IMAGE : {msg}")
+            self.message.SetLabel(label = f"MESSAGE : {msg}")
 
     def Hide(self, event):
         if self.isexist:
-            print("HIDE STOCKS IMAGES")
+            self.message.SetLabel(label = f"MESSAGE : Hide Stocks Images")
             while self.bmps_dict:
                 stock_code, bmp = list(self.bmps_dict.items())[-1]
                 bmp.Destroy()
                 self.bmps_dict.pop(stock_code)
             self.isexist = False
         else:
-            print("STOCKS IMAGES IS NOT EXIST")
+            self.message.SetLabel(label = f"MESSAGE : Stock Images Are Not Exist")
 
     def Close(self, event):
-        print("CLOSE")
         self.Crawler.close()
         self.frame.Destroy()
 
