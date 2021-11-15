@@ -51,9 +51,5 @@ class Crawler:
 
 if __name__ == "__main__":
     Crawler = Crawler()
-    Crawler.addStock(2610)
-    Crawler.addStock(1609)
-    Crawler.addStock(2303)
-    Crawler.delStock(2303)
     Crawler.loadImage()
     Crawler.close()
