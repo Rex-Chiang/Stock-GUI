@@ -13,7 +13,9 @@ This project retrieve stocks information from Yahoo. Users could customize the s
 ## Tests
 ```
 cd Stock-GUI
+python3 -m venv StockGUIEnv
 source StockGUIEnv/bin/activate
+pip3 install -r requirements.txt
 cd StockGUIProject
 py2applet --make-setup StockGUIapp.py
 python3 setup.py py2app
