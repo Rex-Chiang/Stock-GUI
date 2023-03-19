@@ -9,15 +9,15 @@ class Crawler:
         self.stocks = []
         try:
             chrome_options = webdriver.ChromeOptions()
-            chrome_options.add_argument('--headless')
+            chrome_options.add_argument("--headless")
             chrome_options.add_argument(
-                'user-agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36"')
+                "user-agent='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36'"
+            )
 
             # Use ChromeDriverManager to download proper chromedriver to cache
             chrome_service = Service(ChromeDriverManager().install())
 
-            self.driver = webdriver.Chrome(service = chrome_service,
-                                           options = chrome_options)
+            self.driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
         except Exception as msg:
             print(f"Got Error During Crawler Initialization : {msg}")
@@ -33,14 +33,14 @@ class Crawler:
     def loadImage(self):
         try:
             for stock in self.stocks:
-                url = "https://s.yimg.com/nb/tw_stock_frontend/scripts/StxChart/StxChart.9d11dfe155.html?sid=" + stock
+                url = f"https://s.yimg.com/nb/tw_stock_frontend/scripts/StxChart/StxChart.9d11dfe155.html?sid={stock}"
                 self.driver.get(url)
                 time.sleep(0.5)
 
                 if not os.path.isdir("./stock_screenshot"):
                     os.mkdir("./stock_screenshot")
 
-                self.driver.save_screenshot("./stock_screenshot/" + stock + ".png")
+                self.driver.save_screenshot(f"./stock_screenshot/{stock}.png")
                 print(f"Save Screenshot : {stock}")
 
         except Exception as msg:
